@@ -1,0 +1,430 @@
+/* ===== SCROLL SUAVE ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BASE ===== */
+body {
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #ffffff;
+  line-height: 1.6;
+}
+
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== HEADER ===== */
+header {
+  background: #020617;
+  padding: 20px 0;
+
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+}
+
+/* ===== HEADER CONTENT ===== */
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+}
+
+/* ===== LOGO ===== */
+.logo-area h1 {
+  font-size: 36px;
+  margin-bottom: 5px;
+}
+
+.logo-area p {
+  color: #94a3b8;
+}
+
+/* ===== MENU ===== */
+.menu {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+.menu a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.menu a:hover {
+  color: #38bdf8;
+}
+
+/* ===== HERO ===== */
+#hero {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+#hero h2 {
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+#hero p {
+  color: #94a3b8;
+  font-size: 18px;
+}
+
+/* ===== RESUMO ===== */
+#resumo {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+/* ===== CARDS ===== */
+.card {
+  flex: 1;
+  min-width: 250px;
+  padding: 25px;
+  border-radius: 12px;
+  background: #1e293b;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* ===== CORES CARDS ===== */
+.receita {
+  border-left: 6px solid #22c55e;
+}
+
+.despesa {
+  border-left: 6px solid #ef4444;
+}
+
+.saldo {
+  border-left: 6px solid #38bdf8;
+}
+
+/* ===== FORMULÁRIO ===== */
+#nova-transacao {
+  background: #111827;
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+
+#nova-transacao h2 {
+  margin-bottom: 20px;
+}
+
+/* ===== FORM ===== */
+#form-transacao {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ===== INPUTS ===== */
+input,
+select,
+button {
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+/* ===== INPUTS E SELECT ===== */
+input,
+select {
+  background: #1e293b;
+  color: #ffffff;
+}
+
+/* ===== BOTÕES ===== */
+button {
+  background: #22c55e;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #16a34a;
+}
+
+/* ===== GRÁFICO ===== */
+#grafico-section {
+  margin-bottom: 40px;
+}
+
+.grafico-container {
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#grafico-financeiro {
+  max-height: 300px;
+}
+
+/* ===== METAS ===== */
+#metas {
+  margin-bottom: 40px;
+}
+
+.meta-card {
+  background: #111827;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.meta-card input {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.meta-card hr {
+  margin: 20px 0;
+  border: 1px solid #1e293b;
+}
+
+/* ===== TEXTOS META ===== */
+#meta-valor {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+#valor-guardado {
+  margin-top: 10px;
+  color: #22c55e;
+  font-weight: bold;
+}
+
+#meta-status {
+  margin-top: 10px;
+  color: #94a3b8;
+}
+
+/* ===== TRANSAÇÕES ===== */
+#transacoes h2 {
+  margin-bottom: 20px;
+}
+
+#lista-transacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ===== ITEM TRANSAÇÃO ===== */
+.transacao {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transacao.entrada {
+  border-left: 5px solid #22c55e;
+}
+
+.transacao.saida {
+  border-left: 5px solid #ef4444;
+}
+
+/* ===== AÇÕES TRANSAÇÃO ===== */
+.acoes-transacao {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ===== BOTÃO EXCLUIR ===== */
+.btn-excluir {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-excluir:hover {
+  background: #dc2626;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+  background: #020617;
+}
+
+/* ===== LINKS SOCIAIS ===== */
+.social-links {
+  margin-top: 10px;
+
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-links a {
+  color: #38bdf8;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.social-links a:hover {
+  color: #0ea5e9;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+
+  /* HEADER */
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* MENU */
+  .menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* HERO */
+  #hero h2 {
+    font-size: 28px;
+  }
+
+  /* CARDS */
+  .card {
+    min-width: 100%;
+  }
+
+  /* TRANSAÇÕES */
+  .transacao {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* AÇÕES */
+  .acoes-transacao {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+}
+
+/* ===== LISTA METAS ===== */
+#lista-metas {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* ===== ITEM META ===== */
+.item-meta {
+  background: #111827;
+  padding: 25px;
+  border-radius: 12px;
+
+  border-left: 6px solid #38bdf8;
+}
+
+/* ===== TOPO META ===== */
+.topo-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 15px;
+}
+
+/* ===== BARRA PROGRESSO ===== */
+.barra-container {
+  width: 100%;
+  height: 20px;
+
+  background: #1e293b;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+  margin: 15px 0;
+}
+
+/* ===== BARRA INTERNA ===== */
+.barra-progresso {
+  height: 100%;
+  background: #22c55e;
+
+  width: 0%;
+
+  transition: 0.4s;
+}
+
+/* ===== BOTÕES META ===== */
+.acoes-meta {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.acoes-meta input {
+  flex: 1;
+}
+
+/* ===== LIMPAR DADOS ===== */
+#limpar-dados {
+  text-align: center;
+  margin: 40px 0;
+}
+
+#btn-limpar {
+  background: #ef4444;
+}
+
+#btn-limpar:hover {
+  background: #dc2626;
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SmartCash | Dashboard Financeiro</title>
+
+  <meta
+    name="description"
+    content="Dashboard financeiro moderno desenvolvido com HTML, CSS e JavaScript."
+  >
+
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+
+  <div class="container header-content">
+
+    <div class="logo-area">
+      <h1>💰 SmartCash</h1>
+      <p>Seu controle financeiro inteligente</p>
+    </div>
+
+    <nav>
+
+      <ul class="menu">
+
+        <li>
+          <a href="#resumo">
+            Resumo Financeiro
+          </a>
+        </li>
+
+        <li>
+          <a href="#metas">
+            Caixinha Financeira
+          </a>
+        </li>
+
+        <li>
+          <a href="#nova-transacao">
+            Nova Transação
+          </a>
+        </li>
+
+        <li>
+          <a href="#transacoes">
+            Histórico
+          </a>
+        </li>
+
+      </ul>
+
+    </nav>
+
+  </div>
+
+</header>
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <!-- HERO -->
+    <section id="hero">
+      <h2>Controle total das suas finanças</h2>
+      <p>
+        Adicione receitas e despesas e acompanhe seu saldo em tempo real.
+      </p>
+    </section>
+
+    <!-- RESUMO FINANCEIRO -->
+    <section id="resumo">
+
+      <div class="card receita">
+        <h3>Entradas</h3>
+        <p id="total-receitas">R$ 0,00</p>
+      </div>
+
+      <div class="card despesa">
+        <h3>Saídas</h3>
+        <p id="total-despesas">R$ 0,00</p>
+      </div>
+
+      <div class="card saldo">
+        <h3>Saldo</h3>
+        <p id="saldo-total">R$ 0,00</p>
+      </div>
+
+    </section>
+
+    <!-- GRÁFICO -->
+    <section id="grafico-section">
+
+    <h2>Resumo Financeiro</h2>
+
+    <div class="grafico-container">
+        <canvas id="grafico-financeiro"></canvas>
+    </div>
+
+    </section>
+
+    <!-- METAS -->
+    <section id="metas">
+
+    <h2>💰 Caixinhas Financeiras</h2>
+
+    <div class="meta-card">
+
+        <input
+        type="text"
+        id="nome-meta"
+        placeholder="Nome da meta"
+        >
+
+        <input
+        type="number"
+        id="objetivo-meta"
+        placeholder="Valor objetivo"
+        >
+
+        <button id="btn-criar-meta">
+        Criar Meta
+        </button>
+
+    </div>
+
+    <!-- LISTA DE METAS -->
+    <div id="lista-metas">
+
+        <!-- JS renderiza aqui -->
+
+    </div>
+
+    </section>
+
+    <!-- FORMULÁRIO -->
+    <section id="nova-transacao">
+
+      <h2>Nova Transação</h2>
+
+      <form id="form-transacao">
+
+        <input
+          type="text"
+          id="descricao"
+          placeholder="Descrição"
+          required
+        >
+
+        <input
+          type="number"
+          id="valor"
+          placeholder="Valor"
+          required
+        >
+
+        <select id="tipo">
+          <option value="entrada">Entrada</option>
+          <option value="saida">Saída</option>
+        </select>
+
+        <button type="submit">
+          Adicionar Transação
+        </button>
+
+      </form>
+
+    </section>
+
+    <!-- TRANSAÇÕES -->
+    <section id="transacoes">
+
+      <h2>Histórico de Transações</h2>
+
+      <div id="lista-transacoes">
+
+        <!-- JS vai renderizar aqui -->
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+
+  <p>© 2026 SmartCash</p>
+
+  <p>
+    Desenvolvido por <strong>Lucas de Goes</strong>
+  </p>
+
+  <div class="social-links">
+
+    <a
+      href="https://github.com/LucasGoes89"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      GitHub
+    </a>
+
+    <a
+      href="https://br.linkedin.com/in/lucas-de-goes-v-junior-135822248"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      LinkedIn
+    </a>
+
+  </div>
+
+<section id="limpar-dados">
+
+  <button id="btn-limpar">
+    🗑 Limpar Todos os Dados
+  </button>
+
+</section>
+
+</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./js/script.js"></script>
+
+</body>
+</html>
