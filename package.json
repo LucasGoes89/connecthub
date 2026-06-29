@@ -1,0 +1,26 @@
+{
+  "name": "connecthub",
+  "version": "1.0.0",
+  "description": "O **SmartCash** é uma aplicação web de controle financeiro desenvolvida com foco em organização financeira pessoal, experiência do usuário e visual moderno.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasGoes89/connecthub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasGoes89/connecthub/issues"
+  },
+  "homepage": "https://github.com/LucasGoes89/connecthub#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "uuid": "^14.0.1"
+  }
+}
