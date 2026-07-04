@@ -1,6 +1,12 @@
-// ======================================================
-// ARRAYS
-// ======================================================
+import {
+
+    buscarTransacoes,
+
+    adicionarTransacao,
+
+    excluirTransacao
+
+} from "./api.js";
 
 // ===== TRANSAÇÕES =====
 const transacoes = [];
