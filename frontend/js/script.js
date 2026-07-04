@@ -1,227 +1,283 @@
-import {
-
-    buscarTransacoes,
-
-    adicionarTransacao,
-
-    excluirTransacao
-
-} from "./api.js";
-
-// ===== TRANSAÇÕES =====
-const transacoes = [];
-
-// ===== METAS =====
-const metas = [];
-
 // ======================================================
-// ELEMENTOS FORMULÁRIO
+// SMARTCASH
+// Desenvolvido por Lucas de Goes
 // ======================================================
 
-const form =
-  document.getElementById("form-transacao");
+// ======================================================
+// CONFIGURAÇÃO DA API
+// ======================================================
+
+const API_URL = "http://localhost:3000";
+
+const categoriaInput =
+document.getElementById("categoria");
+
+// ======================================================
+// DADOS DA APLICAÇÃO
+// ======================================================
+
+let transacoes = [];
+let metas = [];
+
+let grafico = null;
+
+// ======================================================
+// ELEMENTOS DO DOM
+// ======================================================
+
+// Formulário
+const form = document.getElementById("form-transacao");
 
 const descricaoInput =
-  document.getElementById("descricao");
+document.getElementById("descricao");
 
 const valorInput =
-  document.getElementById("valor");
+document.getElementById("valor");
 
 const tipoInput =
-  document.getElementById("tipo");
+document.getElementById("tipo");
 
-// ======================================================
-// LISTA TRANSAÇÕES
-// ======================================================
+// Lista
 
 const listaTransacoes =
-  document.getElementById("lista-transacoes");
+document.getElementById("lista-transacoes");
 
-// ======================================================
-// RESUMO FINANCEIRO
-// ======================================================
+// Resumo
 
 const totalReceitas =
-  document.getElementById("total-receitas");
+document.getElementById("total-receitas");
 
 const totalDespesas =
-  document.getElementById("total-despesas");
+document.getElementById("total-despesas");
 
 const saldoTotal =
-  document.getElementById("saldo-total");
+document.getElementById("saldo-total");
 
-// ======================================================
-// METAS
-// ======================================================
+// Metas
 
 const nomeMeta =
-  document.getElementById("nome-meta");
+document.getElementById("nome-meta");
 
 const objetivoMeta =
-  document.getElementById("objetivo-meta");
+document.getElementById("objetivo-meta");
 
 const btnCriarMeta =
-  document.getElementById("btn-criar-meta");
+document.getElementById("btn-criar-meta");
 
 const listaMetas =
-  document.getElementById("lista-metas");
+document.getElementById("lista-metas");
 
-// ======================================================
-// LIMPAR DADOS
-// ======================================================
+// Limpar
 
 const btnLimpar =
-  document.getElementById("btn-limpar");
+document.getElementById("btn-limpar");
 
 // ======================================================
-// GRÁFICO
+// API
 // ======================================================
 
-let grafico;
+async function buscarTransacoes() {
+
+    try {
+
+        const resposta =
+        await fetch(`${API_URL}/transacoes`);
+
+        transacoes =
+        await resposta.json();
+
+        renderizarTransacoes();
+
+        atualizarResumo();
+
+    }
+
+    catch (erro) {
+
+        console.error("Erro:", erro);
+
+    }
+
+}
+
+// ------------------------------------------------------
+
+async function adicionarTransacaoAPI(transacao){
+
+    try{
+
+        await fetch(`${API_URL}/transacoes`,{
+
+            method:"POST",
+
+            headers:{
+
+                "Content-Type":"application/json"
+
+            },
+
+            body:JSON.stringify(transacao)
+
+        });
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+    }
+
+}
+
+// ------------------------------------------------------
+
+async function excluirTransacaoAPI(id){
+
+    try{
+
+        await fetch(`${API_URL}/transacoes/${id}`,{
+
+            method:"DELETE"
+
+        });
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+
+    }
+
+}
 
 // ======================================================
-// EVENTO FORMULÁRIO
+// NOVA TRANSAÇÃO
 // ======================================================
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", async (event)=>{
 
-  // ===== EVITA RECARREGAR =====
-  event.preventDefault();
+    event.preventDefault();
 
-  // ===== DADOS =====
-  const descricao =
-    descricaoInput.value;
+    const descricao =
+    descricaoInput.value.trim();
 
-  const valor =
+    const valor =
     Number(valorInput.value);
 
-  const tipo =
+    const tipo =
     tipoInput.value;
 
-  // ===== VALIDAÇÃO =====
-  if (descricao === "" || valor <= 0) {
+    const categoria =
+    categoriaInput.value;
 
-    alert("Preencha os campos corretamente.");
+    const data =
+    new Date().toLocaleDateString("pt-BR");
 
-    return;
+    if(descricao==="" || valor<=0){
 
-  }
+        alert("Preencha corretamente.");
 
-  // ===== NOVA TRANSAÇÃO =====
-  const novaTransacao = {
+        return;
 
-    id: Date.now(),
+    }
 
-    descricao: descricao,
+    const novaTransacao = {
 
-    valor: valor,
+        descricao,
 
-    tipo: tipo
+        valor,
 
-  };
+        tipo,
 
-  // ===== ADICIONA =====
-  transacoes.push(novaTransacao);
+        categoria,
 
-  // ===== RENDERIZA =====
-  renderizarTransacoes();
+        data
 
-  atualizarResumo();
+    };
 
-  // ===== SALVA =====
-  salvarDados();
+    await adicionarTransacaoAPI(novaTransacao);
 
-  // ===== LIMPA =====
-  form.reset();
+    await buscarTransacoes();
+
+    form.reset();
 
 });
 
 // ======================================================
-// RENDERIZA TRANSAÇÕES
+// RENDERIZAR TRANSAÇÕES
 // ======================================================
 
 function renderizarTransacoes() {
 
-  // ===== LIMPA =====
-  listaTransacoes.innerHTML = "";
+    listaTransacoes.innerHTML = "";
 
-  // ===== PERCORRE =====
-  transacoes.forEach(function(transacao) {
+    transacoes.forEach((transacao) => {
 
-    // ===== DIV =====
-    const div =
-      document.createElement("div");
+        const div = document.createElement("div");
 
-    // ===== CLASSES =====
-    div.classList.add("transacao");
+        div.classList.add("transacao");
+        div.classList.add(transacao.tipo);
 
-    div.classList.add(transacao.tipo);
+        div.innerHTML = `
+            <div>
+                <h3>${transacao.descricao}</h3>
+                    <p>
 
-    // ===== HTML =====
-    div.innerHTML = `
+                    R$ ${Number(transacao.valor).toFixed(2)}
 
-      <div>
+                    </p>
 
-        <h3>
-          ${transacao.descricao}
-        </h3>
+                    <small>
 
-        <p>
-          R$ ${transacao.valor.toFixed(2)}
-        </p>
+                    ${transacao.categoria}
 
-      </div>
+                    </small>
 
-      <div class="acoes-transacao">
+                    <br>
 
-        <span>
+                    <small>
 
-          ${transacao.tipo === "entrada"
-            ? "🟢 Entrada"
-            : "🔴 Saída"}
+                    ${transacao.data}
 
-        </span>
+                    </small>            </div>
 
-        <button
-          class="btn-excluir"
-          onclick="excluirTransacao(${transacao.id})"
-        >
-          Excluir
-        </button>
+            <div class="acoes-transacao">
 
-      </div>
+                <span>
+                    ${transacao.tipo === "entrada"
+                        ? "🟢 Entrada"
+                        : "🔴 Saída"}
+                </span>
+                    
+                <button onclick="editarTransacao(${transacao.id})">
 
-    `;
+                ✏️ Editar
 
-    // ===== ADICIONA =====
-    listaTransacoes.appendChild(div);
+                </button>
+                <button onclick="excluirTransacao(${transacao.id})">
+                    Excluir
+                </button>
 
-  });
+            </div>
+        `;
+
+        listaTransacoes.appendChild(div);
+
+    });
 
 }
 
 // ======================================================
-// EXCLUI TRANSAÇÃO
+// EXCLUIR TRANSAÇÃO
 // ======================================================
 
-function excluirTransacao(id) {
+async function excluirTransacao(id){
 
-  // ===== ÍNDICE =====
-  const indice =
-    transacoes.findIndex(
-      transacao => transacao.id === id
-    );
+    await excluirTransacaoAPI(id);
 
-  // ===== REMOVE =====
-  transacoes.splice(indice, 1);
-
-  // ===== ATUALIZA =====
-  renderizarTransacoes();
-
-  atualizarResumo();
-
-  // ===== SALVA =====
-  salvarDados();
+    await buscarTransacoes();
 
 }
 
@@ -229,55 +285,32 @@ function excluirTransacao(id) {
 // RESUMO FINANCEIRO
 // ======================================================
 
-function atualizarResumo() {
+function atualizarResumo(){
 
-  // ===== RECEITAS =====
-  const receitas = transacoes
+    const receitas = transacoes
 
-    .filter(
-      transacao =>
-        transacao.tipo === "entrada"
-    )
+        .filter(t => t.tipo === "entrada")
 
-    .reduce((acc, transacao) => {
+        .reduce((acc,t)=> acc + Number(t.valor),0);
 
-      return acc + transacao.valor;
+    const despesas = transacoes
 
-    }, 0);
+        .filter(t => t.tipo === "saida")
 
-  // ===== DESPESAS =====
-  const despesas = transacoes
+        .reduce((acc,t)=> acc + Number(t.valor),0);
 
-    .filter(
-      transacao =>
-        transacao.tipo === "saida"
-    )
+    const saldo = receitas - despesas;
 
-    .reduce((acc, transacao) => {
+    totalReceitas.textContent =
+        `R$ ${receitas.toFixed(2)}`;
 
-      return acc + transacao.valor;
+    totalDespesas.textContent =
+        `R$ ${despesas.toFixed(2)}`;
 
-    }, 0);
+    saldoTotal.textContent =
+        `R$ ${saldo.toFixed(2)}`;
 
-  // ===== SALDO =====
-  const saldo =
-    receitas - despesas;
-
-  // ===== ATUALIZA =====
-  totalReceitas.textContent =
-    `R$ ${receitas.toFixed(2)}`;
-
-  totalDespesas.textContent =
-    `R$ ${despesas.toFixed(2)}`;
-
-  saldoTotal.textContent =
-    `R$ ${saldo.toFixed(2)}`;
-
-  // ===== GRÁFICO =====
-  atualizarGrafico(
-    receitas,
-    despesas
-  );
+    atualizarGrafico(receitas,despesas);
 
 }
 
@@ -285,342 +318,111 @@ function atualizarResumo() {
 // GRÁFICO
 // ======================================================
 
-function atualizarGrafico(
-  receitas,
-  despesas
-) {
+function atualizarGrafico(receitas,despesas){
 
-  // ===== CANVAS =====
-  const ctx =
-    document.getElementById(
-      "grafico-financeiro"
-    );
+    const ctx =
+    document.getElementById("grafico-financeiro");
 
-  // ===== REMOVE ANTIGO =====
-  if (grafico) {
+    if(grafico){
 
-    grafico.destroy();
-
-  }
-
-  // ===== NOVO =====
-  grafico = new Chart(ctx, {
-
-    type: "doughnut",
-
-    data: {
-
-      labels: [
-        "Entradas",
-        "Saídas"
-      ],
-
-      datasets: [{
-
-        data: [
-          receitas,
-          despesas
-        ],
-
-        backgroundColor: [
-          "#22c55e",
-          "#ef4444"
-        ]
-
-      }]
-
-    },
-
-    options: {
-
-      responsive: true,
-
-      maintainAspectRatio: false
+        grafico.destroy();
 
     }
 
-  });
+    grafico = new Chart(ctx,{
+
+        type:"doughnut",
+
+        data:{
+
+            labels:["Entradas","Saídas"],
+
+            datasets:[{
+
+                data:[receitas,despesas],
+
+                backgroundColor:[
+
+                    "#16a34a",
+                    "#dc2626"
+
+                ]
+
+            }]
+
+        },
+
+        options:{
+
+            responsive:true,
+
+            maintainAspectRatio:false
+
+        }
+
+    });
 
 }
 
 // ======================================================
-// CRIAR META
+// INICIAR
 // ======================================================
 
-btnCriarMeta.addEventListener("click", function() {
+buscarTransacoes();
 
-  // ===== DADOS =====
-  const nome =
-    nomeMeta.value;
+async function editarTransacaoAPI(id, dados){
 
-  const objetivo =
-    Number(objetivoMeta.value);
+    await fetch(`${API_URL}/transacoes/${id}`,{
 
-  // ===== VALIDAÇÃO =====
-  if (
-    nome === "" ||
-    objetivo <= 0
-  ) {
+        method:"PUT",
 
-    alert(
-      "Preencha os campos corretamente."
-    );
+        headers:{
 
-    return;
+            "Content-Type":"application/json"
 
-  }
+        },
 
-  // ===== NOVA META =====
-  const novaMeta = {
+        body:JSON.stringify(dados)
 
-    id: Date.now(),
-
-    nome: nome,
-
-    objetivo: objetivo,
-
-    guardado: 0
-
-  };
-
-  // ===== ADICIONA =====
-  metas.push(novaMeta);
-
-  // ===== RENDERIZA =====
-  renderizarMetas();
-
-  // ===== SALVA =====
-  salvarDados();
-
-  // ===== LIMPA =====
-  nomeMeta.value = "";
-
-  objetivoMeta.value = "";
-
-});
-
-// ======================================================
-// RENDERIZA METAS
-// ======================================================
-
-function renderizarMetas() {
-
-  // ===== LIMPA =====
-  listaMetas.innerHTML = "";
-
-  // ===== PERCORRE =====
-  metas.forEach(function(meta) {
-
-    // ===== PORCENTAGEM =====
-    const porcentagem =
-      (meta.guardado / meta.objetivo) * 100;
-
-    // ===== DIV =====
-    const div =
-      document.createElement("div");
-
-    // ===== CLASSE =====
-    div.classList.add("item-meta");
-
-    // ===== HTML =====
-    div.innerHTML = `
-
-      <div class="topo-meta">
-
-        <h3>
-          ${meta.nome}
-        </h3>
-
-        <p>
-          R$ ${meta.guardado.toFixed(2)}
-          /
-          R$ ${meta.objetivo.toFixed(2)}
-        </p>
-
-      </div>
-
-      <div class="barra-container">
-
-        <div
-          class="barra-progresso"
-          style="width: ${porcentagem}%"
-        ></div>
-
-      </div>
-
-      <p>
-        ${porcentagem.toFixed(1)}%
-        concluído
-      </p>
-
-      <div class="acoes-meta">
-
-        <input
-          type="number"
-          id="guardar-${meta.id}"
-          placeholder="Valor para guardar"
-        >
-
-        <button
-          onclick="guardarValor(${meta.id})"
-        >
-          Guardar
-        </button>
-
-      </div>
-
-    `;
-
-    // ===== ADICIONA =====
-    listaMetas.appendChild(div);
-
-  });
+    });
 
 }
 
-// ======================================================
-// GUARDAR VALOR
-// ======================================================
+async function editarTransacao(id){
 
-function guardarValor(id) {
+    const transacao =
+    transacoes.find(t => t.id === id);
 
-  // ===== INPUT =====
-  const input =
-    document.getElementById(
-      `guardar-${id}`
-    );
+    const descricao =
+    prompt("Descrição:", transacao.descricao);
 
-  // ===== VALOR =====
-  const valor =
-    Number(input.value);
+    if(descricao===null) return;
 
-  // ===== VALIDAÇÃO =====
-  if (valor <= 0) {
+    const valor =
+    prompt("Valor:", transacao.valor);
 
-    alert("Digite um valor válido.");
+    if(valor===null) return;
 
-    return;
+    const dados={
 
-  }
+        descricao,
 
-  // ===== BUSCA META =====
-  const meta =
-    metas.find(
-      meta => meta.id === id
-    );
+        valor:Number(valor),
 
-  // ===== ADICIONA =====
-  meta.guardado += valor;
+        tipo:transacao.tipo,
 
-  // ===== ATUALIZA =====
-  renderizarMetas();
+        categoria:transacao.categoria,
 
-  // ===== SALVA =====
-  salvarDados();
+        data:transacao.data
+
+    };
+
+    await editarTransacaoAPI(id,dados);
+
+    await buscarTransacoes();
 
 }
 
-// ======================================================
-// SALVAR DADOS
-// ======================================================
-
-function salvarDados() {
-
-  // ===== TRANSAÇÕES =====
-  localStorage.setItem(
-    "transacoes",
-    JSON.stringify(transacoes)
-  );
-
-  // ===== METAS =====
-  localStorage.setItem(
-    "metas",
-    JSON.stringify(metas)
-  );
-
-}
-
-// ======================================================
-// CARREGAR DADOS
-// ======================================================
-
-function carregarDados() {
-
-  // ===== TRANSAÇÕES =====
-  const transacoesSalvas =
-    localStorage.getItem("transacoes");
-
-  // ===== METAS =====
-  const metasSalvas =
-    localStorage.getItem("metas");
-
-  // ===== VERIFICA =====
-  if (transacoesSalvas) {
-
-    const dados =
-      JSON.parse(transacoesSalvas);
-
-    transacoes.push(...dados);
-
-  }
-
-  // ===== VERIFICA =====
-  if (metasSalvas) {
-
-    const dados =
-      JSON.parse(metasSalvas);
-
-    metas.push(...dados);
-
-  }
-
-  // ===== RENDERIZA =====
-  renderizarTransacoes();
-
-  atualizarResumo();
-
-  renderizarMetas();
-
-}
-
-// ======================================================
-// LIMPAR DADOS
-// ======================================================
-
-btnLimpar.addEventListener("click", function() {
-
-  // ===== CONFIRMA =====
-  const confirmar =
-    confirm(
-      "Deseja realmente apagar todos os dados?"
-    );
-
-  // ===== CANCELA =====
-  if (!confirmar) {
-
-    return;
-
-  }
-
-  // ===== LIMPA ARRAYS =====
-  transacoes.length = 0;
-
-  metas.length = 0;
-
-  // ===== LIMPA STORAGE =====
-  localStorage.clear();
-
-  // ===== ATUALIZA =====
-  renderizarTransacoes();
-
-  atualizarResumo();
-
-  renderizarMetas();
-
-});
-
-// ======================================================
-// INICIAR SISTEMA
-// ======================================================
-
-carregarDados();
+// Disponibiliza para os botões HTML
+window.editarTransacao = editarTransacao;
+window.excluirTransacao = excluirTransacao;
