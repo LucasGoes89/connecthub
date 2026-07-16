@@ -2,6 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 
+const autenticar =
+require("../middleware/auth");
+
 const controller =
 require("../controllers/transacaoController");
 
@@ -9,26 +12,28 @@ require("../controllers/transacaoController");
 
 router.get(
     "/",
-    controller.listarTransacoes
+    autenticar,
+    controller.listar
 );
 
 // =========================
 
 router.post(
     "/",
-    controller.adicionarTransacao
+    autenticar,
+    controller.criar
 );
-
-// =========================
 
 router.put(
     "/:id",
-    controller.editarTransacao
+    autenticar,
+    controller.atualizar
 );
 
 router.delete(
     "/:id",
-    controller.excluirTransacao
+    autenticar,
+    controller.excluir
 );
 
 module.exports = router;

@@ -1,3 +1,6 @@
+/* ===== IMPORTAÇÃO DE FONTE MODERNA ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 /* ===== SCROLL SUAVE ===== */
 html {
   scroll-behavior: smooth;
@@ -12,29 +15,31 @@ html {
 
 /* ===== BASE ===== */
 body {
-  font-family: Arial, sans-serif;
-  background: #0f172a;
-  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ===== CONTAINER ===== */
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }
 
 /* ===== HEADER ===== */
 header {
-  background: #020617;
-  padding: 20px 0;
-
+  background: rgba(2, 6, 23, 0.85);
+  backdrop-filter: blur(12px); /* Efeito translúcido moderno */
+  -webkit-backdrop-filter: blur(12px);
+  padding: 16px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
-
-  box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* ===== HEADER CONTENT ===== */
@@ -47,26 +52,34 @@ header {
 
 /* ===== LOGO ===== */
 .logo-area h1 {
-  font-size: 36px;
-  margin-bottom: 5px;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .logo-area p {
   color: #94a3b8;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /* ===== MENU ===== */
 .menu {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   list-style: none;
+  align-items: center;
 }
 
 .menu a {
-  color: #ffffff;
+  color: #94a3b8;
   text-decoration: none;
-  transition: 0.3s;
-  font-weight: bold;
+  font-weight: 500;
+  font-size: 15px;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .menu a:hover {
@@ -76,17 +89,24 @@ header {
 /* ===== HERO ===== */
 #hero {
   text-align: center;
-  padding: 60px 20px;
+  padding: 80px 20px 40px 20px;
 }
 
 #hero h2 {
-  font-size: 40px;
-  margin-bottom: 15px;
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #hero p {
   color: #94a3b8;
   font-size: 18px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 /* ===== RESUMO ===== */
@@ -101,20 +121,33 @@ header {
 .card {
   flex: 1;
   min-width: 250px;
-  padding: 25px;
-  border-radius: 12px;
+  padding: 24px;
+  border-radius: 16px;
   background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 }
 
 .card h3 {
-  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+  margin-bottom: 12px;
 }
 
 .card p {
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #f8fafc;
 }
 
 /* ===== CORES CARDS ===== */
@@ -133,30 +166,37 @@ header {
 /* ===== FORMULÁRIO ===== */
 #nova-transacao {
   background: #111827;
-  padding: 30px;
-  border-radius: 12px;
+  padding: 32px;
+  border-radius: 16px;
   margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 #nova-transacao h2 {
-  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
 }
 
 /* ===== FORM ===== */
 #form-transacao {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 16px;
 }
 
 /* ===== INPUTS ===== */
 input,
 select,
 button {
-  padding: 14px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 15px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease-in-out;
 }
 
 /* ===== INPUTS E SELECT ===== */
@@ -164,6 +204,19 @@ input,
 select {
   background: #1e293b;
   color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+input:focus,
+select:focus {
+  border-color: #38bdf8;
+  background: #1e293b;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+/* Placeholders mais discretos */
+input::placeholder {
+  color: #64748b;
 }
 
 /* ===== BOTÕES ===== */
@@ -171,12 +224,18 @@ button {
   background: #22c55e;
   color: #ffffff;
   cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
 }
 
 button:hover {
   background: #16a34a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.3);
+}
+
+button:active {
+  transform: translateY(1px);
 }
 
 /* ===== GRÁFICO ===== */
@@ -186,15 +245,16 @@ button:hover {
 
 .grafico-container {
   background: #111827;
-  padding: 20px;
-  border-radius: 12px;
-
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
   max-width: 500px;
   margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
 #grafico-financeiro {
-  max-height: 300px;
+  max-height: 280px;
 }
 
 /* ===== METAS ===== */
@@ -204,154 +264,161 @@ button:hover {
 
 .meta-card {
   background: #111827;
-  padding: 30px;
-  border-radius: 12px;
+  padding: 32px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .meta-card input {
   width: 100%;
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
 .meta-card hr {
-  margin: 20px 0;
-  border: 1px solid #1e293b;
+  margin: 24px 0;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ===== TEXTOS META ===== */
+/* TEXTOS META */
 #meta-valor {
   margin-top: 20px;
-  font-weight: bold;
+  font-weight: 600;
+  color: #f8fafc;
 }
 
 #valor-guardado {
   margin-top: 10px;
   color: #22c55e;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 #meta-status {
   margin-top: 10px;
   color: #94a3b8;
+  font-size: 14px;
 }
 
 /* ===== TRANSAÇÕES ===== */
 #transacoes h2 {
-  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
 }
 
 #lista-transacoes {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
 }
 
 /* ===== ITEM TRANSAÇÃO ===== */
 .transacao {
   background: #1e293b;
-  padding: 20px;
-  border-radius: 10px;
-
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.transacao:hover {
+  transform: translateX(3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .transacao.entrada {
-  border-left: 5px solid #22c55e;
+  border-left: 6px solid #22c55e;
 }
 
 .transacao.saida {
-  border-left: 5px solid #ef4444;
+  border-left: 6px solid #ef4444;
 }
 
 /* ===== AÇÕES TRANSAÇÃO ===== */
 .acoes-transacao {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 16px;
+}
+
+.acoes-transacao span {
+  font-size: 14px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+/* ===== BOTOES DE AÇÃO INTERNOS ===== */
+.acoes-transacao button {
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* Botão Editar */
+.acoes-transacao button:first-of-type {
+  background: #38bdf8;
+  color: #0f172a;
+  box-shadow: 0 4px 10px rgba(56, 189, 248, 0.15);
+}
+
+.acoes-transacao button:first-of-type:hover {
+  background: #0ea5e9;
+  box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
 }
 
 /* ===== BOTÃO EXCLUIR ===== */
-.btn-excluir {
+.btn-excluir,
+.acoes-transacao button:last-of-type {
   background: #ef4444;
   color: #ffffff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.15);
 }
 
-.btn-excluir:hover {
+.btn-excluir:hover,
+.acoes-transacao button:last-of-type:hover {
   background: #dc2626;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.25);
 }
 
 /* ===== FOOTER ===== */
 footer {
   text-align: center;
-  padding: 20px;
-  margin-top: 50px;
+  padding: 32px;
+  margin-top: 80px;
   background: #020617;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+footer p {
+  color: #64748b;
+  font-size: 14px;
 }
 
 /* ===== LINKS SOCIAIS ===== */
 .social-links {
-  margin-top: 10px;
-
+  margin-top: 14px;
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
 }
 
 .social-links a {
   color: #38bdf8;
   text-decoration: none;
-  transition: 0.3s;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
 }
 
 .social-links a:hover {
   color: #0ea5e9;
-}
-
-/* ===== RESPONSIVIDADE ===== */
-@media (max-width: 768px) {
-
-  /* HEADER */
-  .header-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  /* MENU */
-  .menu {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* HERO */
-  #hero h2 {
-    font-size: 28px;
-  }
-
-  /* CARDS */
-  .card {
-    min-width: 100%;
-  }
-
-  /* TRANSAÇÕES */
-  .transacao {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  /* AÇÕES */
-  .acoes-transacao {
-    width: 100%;
-    justify-content: space-between;
-  }
-
 }
 
 /* ===== LISTA METAS ===== */
@@ -365,10 +432,13 @@ footer {
 /* ===== ITEM META ===== */
 .item-meta {
   background: #111827;
-  padding: 25px;
-  border-radius: 12px;
-
+  padding: 24px;
+  border-radius: 14px;
   border-left: 6px solid #38bdf8;
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+  border-right: 1px solid rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
 }
 
 /* ===== TOPO META ===== */
@@ -376,39 +446,38 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 12px;
+}
 
-  margin-bottom: 15px;
+.topo-meta h3 {
+  font-size: 18px;
+  font-weight: 600;
 }
 
 /* ===== BARRA PROGRESSO ===== */
 .barra-container {
   width: 100%;
-  height: 20px;
-
+  height: 12px; /* Reduzido para um visual mais elegante */
   background: #1e293b;
-
-  border-radius: 20px;
-
+  border-radius: 10px;
   overflow: hidden;
-
-  margin: 15px 0;
+  margin: 16px 0;
 }
 
 /* ===== BARRA INTERNA ===== */
 .barra-progresso {
   height: 100%;
-  background: #22c55e;
-
+  background: linear-gradient(90deg, #22c55e, #4ade80);
   width: 0%;
-
-  transition: 0.4s;
+  border-radius: 10px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ===== BOTÕES META ===== */
 .acoes-meta {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 .acoes-meta input {
@@ -418,13 +487,195 @@ footer {
 /* ===== LIMPAR DADOS ===== */
 #limpar-dados {
   text-align: center;
-  margin: 40px 0;
+  margin: 48px 0;
 }
 
 #btn-limpar {
   background: #ef4444;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
 }
 
 #btn-limpar:hover {
   background: #dc2626;
+}
+
+/* ===== USUÁRIO LOGADO ===== */
+.usuario-logado {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #f8fafc;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#btn-logout {
+  background: #ef4444;
+  color: #ffffff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15);
+  transition: all 0.2s ease;
+}
+
+#btn-logout:hover {
+  background: #991b1b;
+  box-shadow: 0 4px 14px rgba(153, 27, 27, 0.25);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  /* HEADER */
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+
+  /* MENU */
+  .menu {
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+
+  .usuario-logado {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* HERO */
+  #hero {
+    padding: 48px 16px;
+  }
+
+  #hero h2 {
+    font-size: 32px;
+  }
+
+  /* CARDS */
+  .card {
+    min-width: 100%;
+  }
+
+  /* TRANSAÇÕES */
+  .transacao {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  /* AÇÕES */
+  .acoes-transacao {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* ======================================================
+   TELA DE LOGIN (Centralização e Estética)
+   ====================================================== */
+
+/* Aplica o comportamento de tela cheia apenas na página de login */
+body.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #0f172a; /* Fundo escuro idêntico ao painel */
+  padding: 20px;
+}
+
+/* Container/Card do Login */
+.login-container {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px; /* Largura ideal para formulários de login */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 
+              0 10px 10px -5px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Título e Subtítulo do Login */
+.login-container h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 8px;
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-container p {
+  color: #94a3b8;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* Inputs dentro do Login */
+.login-container input {
+  width: 100%;
+  margin-bottom: 16px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.login-container input:focus {
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+}
+
+/* Botão de Entrar */
+.login-container button {
+  width: 100%;
+  background: #22c55e;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+}
+
+.login-container button:hover {
+  background: #16a34a;
+  box-shadow: 0 6px 16px rgba(34, 197, 94, 0.3);
+}
+
+/* Links de rodapé (Criar Conta, Esqueci Senha) */
+.login-footer {
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+.login-footer a {
+  color: #38bdf8;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.login-footer a:hover {
+  color: #0ea5e9;
+  text-decoration: underline;
+}
+
+/* Animação suave de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

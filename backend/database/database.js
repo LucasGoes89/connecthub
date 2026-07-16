@@ -12,24 +12,52 @@ async function conectarBanco() {
 
     });
 
+    // ==========================
+    // TABELA DE USUÁRIOS
+    // ==========================
+
+    await db.exec(`
+
+        CREATE TABLE IF NOT EXISTS usuarios(
+
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+            nome TEXT NOT NULL,
+
+            email TEXT NOT NULL UNIQUE,
+
+            senha TEXT NOT NULL
+
+        );
+
+    `);
+
+    // ==========================
+    // TABELA DE TRANSAÇÕES
+    // ==========================
+
     await db.exec(`
 
         CREATE TABLE IF NOT EXISTS transacoes(
 
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
 
-            descricao TEXT NOT NULL,
+    descricao TEXT NOT NULL,
 
-            valor REAL NOT NULL,
+    valor REAL NOT NULL,
 
-            tipo TEXT NOT NULL,
+    tipo TEXT NOT NULL,
 
-            categoria TEXT NOT NULL,
+    categoria TEXT NOT NULL,
 
-            data TEXT NOT NULL
+    data TEXT NOT NULL,
+
+    usuario_id INTEGER NOT NULL,
+
+    FOREIGN KEY (usuario_id)
+        REFERENCES usuarios(id)
 
         );
-
     `);
 
     return db;

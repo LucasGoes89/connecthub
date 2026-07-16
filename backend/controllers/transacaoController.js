@@ -11,17 +11,28 @@ async function listarTransacoes(req, res) {
         const db = await conectarBanco();
 
         const transacoes = await db.all(
-            "SELECT * FROM transacoes ORDER BY id DESC"
+
+            `SELECT *
+             FROM transacoes
+             WHERE usuario_id = ?
+             ORDER BY id DESC`,
+
+            [req.usuario.id]
+
         );
 
         res.json(transacoes);
 
-    } catch (erro) {
+    }
+
+    catch (erro) {
 
         console.error(erro);
 
         res.status(500).json({
+
             erro: "Erro ao listar transações."
+
         });
 
     }
@@ -41,25 +52,46 @@ async function adicionarTransacao(req, res) {
         const {
 
             descricao,
-
             valor,
-
             tipo,
-
             categoria,
-
             data
 
         } = req.body;
 
+        const usuario_id = req.usuario.id;
+
         const resultado = await db.run(
 
             `INSERT INTO transacoes
-            (descricao, valor, tipo, categoria, data)
+            (
+                descricao,
+                valor,
+                tipo,
+                categoria,
+                data,
+                usuario_id
+            )
+            VALUES
+            (
+                ?,
+                ?,
+                ?,
+                ?,
+                ?,
+                ?
+            )`,
 
-            VALUES (?, ?, ?, ?, ?)`,
+            [
 
-            [descricao, valor, tipo, categoria, data]
+                descricao,
+                valor,
+                tipo,
+                categoria,
+                data,
+                usuario_id
+
+            ]
 
         );
 
@@ -68,61 +100,29 @@ async function adicionarTransacao(req, res) {
             id: resultado.lastID,
             descricao,
             valor,
-            tipo
+            tipo,
+            categoria,
+            data,
+            usuario_id
 
         });
 
-    } catch (erro) {
+    }
+
+    catch (erro) {
 
         console.error(erro);
 
         res.status(500).json({
+
             erro: "Erro ao cadastrar."
-        });
-
-    }
-
-}
-
-// ===============================
-// EXCLUIR
-// ===============================
-
-async function excluirTransacao(req, res) {
-
-    try {
-
-        const db = await conectarBanco();
-
-        const id = req.params.id;
-
-        await db.run(
-
-            "DELETE FROM transacoes WHERE id = ?",
-
-            [id]
-
-        );
-
-        res.json({
-
-            mensagem: "Transação removida."
-
-        });
-
-    } catch (erro) {
-
-        console.error(erro);
-
-        res.status(500).json({
-
-            erro: "Erro ao excluir."
 
         });
 
     }
 
 }
+
 // ===============================
 // EDITAR TRANSAÇÃO
 // ===============================
@@ -136,14 +136,16 @@ async function editarTransacao(req, res) {
         const id = req.params.id;
 
         const {
+
             descricao,
             valor,
             tipo,
             categoria,
             data
+
         } = req.body;
 
-        await db.run(
+        const resultado = await db.run(
 
             `UPDATE transacoes
              SET descricao = ?,
@@ -151,21 +153,37 @@ async function editarTransacao(req, res) {
                  tipo = ?,
                  categoria = ?,
                  data = ?
-             WHERE id = ?`,
+             WHERE id = ?
+             AND usuario_id = ?`,
 
             [
+
                 descricao,
                 valor,
                 tipo,
                 categoria,
                 data,
-                id
+                id,
+                req.usuario.id
+
             ]
 
         );
 
+        if (resultado.changes === 0) {
+
+            return res.status(404).json({
+
+                erro: "Transação não encontrada."
+
+            });
+
+        }
+
         res.json({
+
             mensagem: "Transação atualizada com sucesso!"
+
         });
 
     }
@@ -175,7 +193,68 @@ async function editarTransacao(req, res) {
         console.error(erro);
 
         res.status(500).json({
+
             erro: "Erro ao atualizar."
+
+        });
+
+    }
+
+}
+
+// ===============================
+// EXCLUIR TRANSAÇÃO
+// ===============================
+
+async function excluirTransacao(req, res) {
+
+    try {
+
+        const db = await conectarBanco();
+
+        const id = req.params.id;
+
+        const resultado = await db.run(
+
+            `DELETE FROM transacoes
+             WHERE id = ?
+             AND usuario_id = ?`,
+
+            [
+
+                id,
+                req.usuario.id
+
+            ]
+
+        );
+
+        if (resultado.changes === 0) {
+
+            return res.status(404).json({
+
+                erro: "Transação não encontrada."
+
+            });
+
+        }
+
+        res.json({
+
+            mensagem: "Transação removida com sucesso."
+
+        });
+
+    }
+
+    catch (erro) {
+
+        console.error(erro);
+
+        res.status(500).json({
+
+            erro: "Erro ao excluir."
+
         });
 
     }
@@ -184,9 +263,12 @@ async function editarTransacao(req, res) {
 
 module.exports = {
 
-    listarTransacoes,
-    adicionarTransacao,
-    editarTransacao,
-    excluirTransacao
+    listar: listarTransacoes,
+
+    criar: adicionarTransacao,
+
+    atualizar: editarTransacao,
+
+    excluir: excluirTransacao
 
 };
