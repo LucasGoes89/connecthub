@@ -1,176 +1,325 @@
-# 💰 SmartCash - Controle Financeiro Inteligente
+# 💰 SmartCash - Dashboard Financeiro
 
-O **SmartCash** é uma aplicação web de controle financeiro desenvolvida com foco em organização financeira pessoal, experiência do usuário e visual moderno.
+![Status](https://img.shields.io/badge/status-Concluído-success)
+![Node.js](https://img.shields.io/badge/Node.js-22.x-green)
+![Express](https://img.shields.io/badge/Express-4.x-black)
+![SQLite](https://img.shields.io/badge/SQLite-3-blue)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-yellow)
 
-O projeto permite registrar entradas e saídas financeiras, acompanhar saldo em tempo real, visualizar gráficos financeiros e criar metas financeiras personalizadas no estilo “caixinha/cofrinho”.
+## 📖 Sobre o projeto
 
----
+O **SmartCash** é uma aplicação web para controle financeiro pessoal, desenvolvida como projeto da disciplina de Desenvolvimento Web.
 
-# 🚀 Funcionalidades
+O sistema permite que cada usuário gerencie suas próprias finanças de forma segura, realizando o cadastro de receitas e despesas, visualizando gráficos financeiros e acompanhando seu saldo em tempo real.
 
-## 📊 Dashboard Financeiro
-- Resumo de receitas
-- Resumo de despesas
-- Saldo total atualizado automaticamente
-
-## 💸 Controle de Transações
-- Adicionar entradas
-- Adicionar saídas
-- Excluir transações
-- Histórico completo de movimentações
-
-## 📈 Gráfico Financeiro
-- Visualização dinâmica de entradas e saídas
-- Atualização automática via Chart.js
-
-## 🎯 Metas Financeiras
-- Criar múltiplas metas financeiras
-- Sistema de “cofrinhos”
-- Guardar valores individualmente
-- Barra de progresso automática
-- Percentual concluído
-
-## 💾 Persistência de Dados
-- Salvamento automático com LocalStorage
-- Dados mantidos mesmo após fechar o navegador
-
-## 📱 Responsividade
-- Layout adaptado para:
-  - Desktop
-  - Tablet
-  - Smartphones
+O projeto foi desenvolvido utilizando **HTML**, **CSS**, **JavaScript**, **Node.js**, **Express**, **SQLite** e autenticação utilizando **JWT (JSON Web Token)**.
 
 ---
 
-# 🛠️ Tecnologias Utilizadas
+## 🚀 Funcionalidades
+
+# 📋 Requisitos do Sistema
+
+## Requisitos Funcionais
+
+O SmartCash foi desenvolvido para atender aos seguintes requisitos funcionais:
+
+### RF01 – Cadastro de Usuários
+O sistema deve permitir que novos usuários realizem seu cadastro informando nome, e-mail e senha.
+
+### RF02 – Autenticação
+O sistema deve permitir que usuários autenticados realizem login utilizando e-mail e senha.
+
+### RF03 – Cadastro de Transações
+O usuário deve poder cadastrar receitas e despesas informando descrição, valor, categoria, tipo e data.
+
+### RF04 – Listagem de Transações
+O sistema deve exibir todas as transações pertencentes ao usuário autenticado.
+
+### RF05 – Atualização de Transações
+O usuário deve poder editar informações de uma transação previamente cadastrada.
+
+### RF06 – Exclusão de Transações
+O usuário deve poder remover transações do sistema.
+
+### RF07 – Dashboard Financeiro
+O sistema deve apresentar um resumo contendo receitas, despesas, saldo atual e gráfico financeiro.
+
+### RF08 – Segurança
+Cada usuário deve visualizar apenas suas próprias informações financeiras.
+
+---
+
+## Requisitos Não Funcionais
+
+### RNF01 – Segurança
+As senhas devem ser armazenadas utilizando criptografia com **bcrypt**.
+
+### RNF02 – Autenticação
+As rotas protegidas devem utilizar autenticação baseada em **JWT (JSON Web Token)**.
+
+### RNF03 – Persistência de Dados
+As informações devem ser armazenadas em banco de dados **SQLite**.
+
+### RNF04 – Arquitetura
+A aplicação deve seguir a arquitetura cliente-servidor, separando Front-end e Back-end.
+
+### RNF05 – API REST
+A comunicação entre Front-end e Back-end deve ocorrer por meio de uma API REST utilizando os métodos HTTP:
+
+- GET
+- POST
+- PUT
+- DELETE
+
+### RNF06 – Responsividade
+A interface deve ser adaptável para diferentes tamanhos de tela.
+
+### RNF07 – Usabilidade
+A interface deve ser intuitiva e permitir o gerenciamento financeiro de forma simples e objetiva.
+
+### RNF08 – Desempenho
+As operações de cadastro, consulta, edição e exclusão devem ser executadas de forma rápida e eficiente.
+
+### RNF09 – Compatibilidade
+O sistema deve funcionar nos principais navegadores modernos.
+
+### RNF10 – Organização do Código
+O projeto deve seguir uma estrutura modular, separando controladores, rotas, banco de dados, middleware e interface do usuário.
+
+### 👤 Autenticação
+
+- Cadastro de usuários
+- Login
+- Autenticação com JWT
+- Rotas protegidas
+- Logout
+
+### 💰 Controle Financeiro
+
+- Cadastro de receitas
+- Cadastro de despesas
+- Categorias
+- Data da transação
+- Resumo financeiro
+- Saldo atualizado automaticamente
+
+### 📊 Dashboard
+
+- Lista de transações
+- Gráfico financeiro
+- Total de receitas
+- Total de despesas
+- Saldo atual
+
+### 🔄 CRUD Completo
+
+O sistema realiza operações através de uma API REST.
+
+- ✅ Criar transações
+- ✅ Listar transações
+- ✅ Atualizar transações
+- ✅ Excluir transações
+
+---
+
+# 🛠 Tecnologias Utilizadas
+
+## Front-end
 
 - HTML5
 - CSS3
-- JavaScript Vanilla
+- JavaScript
 - Chart.js
-- LocalStorage
+
+## Back-end
+
+- Node.js
+- Express
+- SQLite
+- JWT
+- bcrypt
+- dotenv
+- CORS
 
 ---
 
-# 🎨 Design
+# 📁 Estrutura do Projeto
 
-O projeto foi desenvolvido utilizando:
-- Visual moderno estilo dashboard fintech
-- Paleta de cores voltada para aplicações financeiras
-- Interface limpa e intuitiva
-- Navegação rápida com menu superior
-
----
-
-# 📂 Estrutura do Projeto
-
-```bash
-SmartCash/
+```
+ConnectHub
 │
-├── index.html
-├── README.md
+├── backend
+│   ├── controllers
+│   ├── database
+│   ├── middleware
+│   ├── routes
+│   ├── data
+│   ├── server.js
+│   └── package.json
 │
-├── css/
-│   └── style.css
+├── frontend
+│   ├── css
+│   ├── js
+│   ├── assets
+│   ├── index.html
+│   ├── login.html
+│   └── cadastro.html
 │
-├── js/
-│   └── script.js
-│
-└── assets/
+└── README.md
 ```
 
 ---
 
-# ▶️ Como Executar o Projeto
+# 🔒 Segurança
 
-## 1. Clone o repositório
+O sistema utiliza autenticação baseada em **JWT (JSON Web Token)**.
 
-```bash
-git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+Após o login:
+
+- o token é armazenado no navegador;
+- todas as requisições protegidas enviam o token no cabeçalho Authorization;
+- apenas usuários autenticados podem acessar suas próprias transações.
+
+---
+
+# 🌐 API REST
+
+## Autenticação
+
+### Cadastro
+
+```
+POST /auth/cadastro
+```
+
+### Login
+
+```
+POST /auth/login
 ```
 
 ---
 
-## 2. Abra a pasta do projeto
+## Transações
 
-```bash
-cd SmartCash
+### Listar
+
+```
+GET /transacoes
+```
+
+### Criar
+
+```
+POST /transacoes
+```
+
+### Atualizar
+
+```
+PUT /transacoes/:id
+```
+
+### Excluir
+
+```
+DELETE /transacoes/:id
 ```
 
 ---
 
-## 3. Execute o projeto
+# ▶️ Como executar
 
-Basta abrir o arquivo:
+## 1. Clone o projeto
 
 ```bash
-index.html
+git clone https://github.com/LucasGoes89/ConnectHub.git
 ```
 
-no navegador.
+---
+
+## 2. Instale as dependências
+
+```bash
+cd backend
+
+npm install
+```
 
 ---
 
-# 🌐 Deploy Online
+## 3. Execute o servidor
 
-O projeto pode ser publicado utilizando:
-
-- GitHub Pages
-- Vercel
+```bash
+node server.js
+```
 
 ---
 
-# 📸 Preview do Projeto
+## 4. Abra o Front-end
 
-## Dashboard Financeiro
-- Controle de receitas e despesas
+Utilize a extensão **Live Server** do VS Code ou outro servidor HTTP.
+
+---
+
+# 📷 Demonstração
+
+## Login
+
+- Autenticação de usuários
+
+## Dashboard
+
+- Resumo financeiro
+- Lista de transações
 - Gráfico financeiro
-- Sistema de metas
+
+## CRUD
+
+- Criar
+- Atualizar
+- Excluir
+- Consultar
 
 ---
 
-# 📚 Objetivo do Projeto
+# 🎯 Objetivos atendidos
 
-Este projeto foi desenvolvido com fins educacionais para prática de:
+✔ API REST
 
-- HTML semântico
-- CSS responsivo
-- JavaScript puro
-- Manipulação do DOM
-- Estruturas de dados
-- Persistência com LocalStorage
-- Boas práticas de desenvolvimento front-end
+✔ CRUD completo
+
+✔ Banco de dados SQLite
+
+✔ Autenticação JWT
+
+✔ Rotas protegidas
+
+✔ Dashboard Financeiro
+
+✔ Front-end responsivo
+
+✔ Integração Front-end + Back-end
+
+✔ Persistência de dados
 
 ---
 
 # 👨‍💻 Desenvolvedor
 
-## Lucas de Goes Vieira Júnior
+**Lucas de Goes Junior**
 
-Estudante de Engenharia de Computação pela UNIVESP.
+GitHub
 
-### 🔗 Links
+https://github.com/LucasGoes89
 
-- GitHub:
-  https://github.com/LucasGoes89
+LinkedIn
 
-- LinkedIn:
-  https://www.linkedin.com/in/lucas-de-goes-v-junior-135822248
-
----
-
-# 📌 Melhorias Futuras
-
-- Categorias financeiras
-- Filtros de transações
-- Datas nas movimentações
-- Exportação de relatórios
-- Tema Dark/Light
-- Integração com API
-- Transformação em PWA
+https://www.linkedin.com/in/lucas-goes-junior/
 
 ---
 
 # 📄 Licença
 
-Este projeto foi desenvolvido para fins acadêmicos e educacionais.
+Projeto desenvolvido para fins acadêmicos.
